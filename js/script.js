@@ -1,73 +1,63 @@
-$(function() {
-    const qrCard = document.getElementById('qr-section');
+const qrCardSection = document.getElementById('qr-section');
+const phone = document.getElementById('sticky-phone');
+const phoneNotif = document.getElementById('sticky-notif');
+const phoneContact = document.getElementById('sticky-details');
+const xvelocity = gsap;
+var controller = new ScrollMagic.Controller();
 
-    var controller = new ScrollMagic.Controller();
+xvelocity.registerPlugin(ScrollTrigger);
 
-    gsap.timeline({
-            triggerElement: "#qr-section",
-            duration: 300, // the scene should last for a scroll distance of 100px
-            offset: 400 // start this scene after scrolling for 50px
-        }).addIndicators({ name: "1 (duration: 2.5)" })
-        .setPin('#qr-card')
-        .to("#qr-card", {
-            ease: "power3.easeInOut",
-            duration: 2.5,
-            y: 550,
-            x: (window.innerWidth / 2) - 500,
-        })
-        // .setTween("#qr-card", 0.5, { backgroundColor: "green", scale: 2.5 })
-        .addTo(controller);
-
-    // new ScrollMagic.Scene({
-    //         triggerElement: '#qr-section',
-    //         duration: 300,
-    //         reverse: true,
-    //         offset: 100,
-
-    //     })
-    //     .addIndicators({ name: "Scroll To Phone" })
-    //     .setTween("#qr-section", 0.5, { backgroundColor: "green", scale: 2.5 })
-    //     .addTo(controller)
-
-
-    /*gsap.t imeline({
-                   scro     llTrigger: {
-                trigger: "#qr-section",
-            
-                            start: "center",
-                            end: "bottom",
-                            scrub: true,
-                            pin: true
-                        }
-                 }).t   o("#qr-card", {
-                        ease: "power3.easeInOut",
-                        duration: 2.5,
-                        y: 550,
-                        x: (window.innerWidth / 2) - 500,
-        }).addIndicators({ name: "1 (duration: 2.5)" }) // add indicators (requires plugin)
-
-            
-    docu            ment.addEventListener('scroll', function() {
-            cons        t scrollPercent = (document.documentElement.scrollTop + document.body.scrollTop) /
-            (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 10;
-            
-                    const startMovingPoint = 0;
-                    const leftMove = 60.5;
-        const rightMove = 80.5;
-            
-               if (     scrollPercent > startMovingPoint && scrollPercent < leftMove) {
-                        qrCard.style.transformStyle = `preserve-3d`;
-                        qrCard.style.transform = `perspective(${1000 - (65 * (scrollPercent - startMovingPoint))}px) rotateY(-${1.5 * (scrollPercent - startMovingPoint)}deg)`;
-                        return;
-              } el      se if (scrollPercent >= leftMove && scrollPercent < rightMove) {
-                        qrCard.style.transform = `perspective(${(75 * (scrollPercent - startMovingPoint))}px) rotateY(${-15.5 + (8 * (scrollPercent - 11))}deg)`;
-                        return;
-          } el          se if (scrollPercent >= rightMove) {
-                        qrCard.style.transform = `perspective(${700 - (65 * (scrollPercent - 12))}px) rotateY(${10 - (4.5 * (scrollPercent - 12))}deg)`;
-                        return;
-             } el       se {
-                        qrCard.style.transform = `initial`;
-                        return;
-                    }
-                });*/
+xvelocity.to("#qr-card", {
+    scrollTrigger: {
+        trigger: "#qr-section",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+        markers: true,
+        toggleActions: "restart pause reverse pause",
+    },
+    pin: true,
+    opacity: 1,
+    x: -100,
+    ease: "power3.out",
+    duration: 3,
+    reverse: true
 });
+
+xvelocity.to("#sticky-phone", {
+    scrollTrigger: {
+        trigger: "#sticky-phone",
+        start: "top center",
+        end: "bottom top",
+        scrub: true,
+        pin:true,
+        markers: true,
+    },
+    onStart: function() {
+        xvelocity.to(phone, {
+            y: 5%,
+            opacity: 1,
+            zoom: 5,
+            ease: "power3.out",
+            duration: 5,
+            reverse: true
+        });
+        xvelocity.to(phoneNotif, {
+            delay: 5,
+            opacity: 1,
+            zoom: 5,
+            ease: "power3.easeInOut",
+            duration: 5,
+            reverse: true
+        });
+        xvelocity.to(phoneNotif, {
+            delay: 5,
+            opacity: 1,
+            s
+            ease: "power3.easeIn",
+            duration: 5,
+            reverse: true
+        });
+    },
+    
+})
