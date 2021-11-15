@@ -10,7 +10,14 @@ xvelocity.registerPlugin(ScrollTrigger);
 
 if (window.innerWidth >= 768) {
 
-    xvelocity.to(card, {
+
+
+    xvelocity.fromTo(card, {
+        opacity: 0.9,
+        rotation: 0,
+        x: 5,
+        y: -100,
+    }, {
         scrollTrigger: {
             trigger: qrCardSection,
             start: "top top",
@@ -19,19 +26,23 @@ if (window.innerWidth >= 768) {
             pin: true,
             markers: !true,
         },
+        y: 370,
         opacity: 1,
         rotation: -7,
-        y: 170,
         x: (window.innerWidth / 2) - (card.offsetWidth / 15),
         zIndex: 100,
         reverse: true,
-        duration: 10,
-        ease: customEase,
+        duration: 5,
+        delay: .2,
+        ease: "power0.aseInOut", //customEase,
         onStart: function() {
-            card.style.transform = "perspective(200em) ";
+            qrCardSection.style.transform = "perspective(100px) rotateY(-0.5deg) rotateX(1deg) rotateZ(1deg) !important ";
         },
 
         onComplete: function() {
+            qrCardSection.style.transform = "unset !important ";
+            card.style.transform = "unset !important ";
+
             card.style.zIndex = "1000 !important";
             xvelocity.to(phone, {
                 scrollTrigger: {
@@ -46,7 +57,8 @@ if (window.innerWidth >= 768) {
                 scale: 0.9,
                 y: 100,
                 ease: "power1.zoomInOut",
-                duration: 3,
+                duration: 5,
+                delay: 2,
                 reverse: true,
                 onComplete: function() {
                     xvelocity.fromTo(
@@ -58,20 +70,21 @@ if (window.innerWidth >= 768) {
                                 start: "top top",
                                 end: "bottom bottom",
                                 markers: !true,
+                                reverse: true,
                                 scrub: true,
                             },
                             opacity: 1,
                             scale: 0.65,
                             ease: "power1.zoomInOut",
-                            delay: 0.5,
-                            duration: 0.5,
-                            reverse: false,
+                            delay: 2.5,
+                            duration: 1,
+                            reverse: true,
                             onComplete: function() {
                                 xvelocity.to(phoneNotif, {
                                     opacity: 0,
                                     scale: 0.2,
-                                    ease: "power1.zoomInOut",
-                                    delay: 0.5,
+                                    ease: "power1.bounceIn",
+                                    delay: 1,
                                     duration: 0.5,
                                     reverse: true,
                                     onComplete: function() {
@@ -80,7 +93,6 @@ if (window.innerWidth >= 768) {
                                                 opacity: 0,
                                                 scale: 0.8,
                                                 bottom: -125,
-                                                reverse: true
                                             }, {
                                                 scrollTrigger: {
                                                     trigger: card,
@@ -91,8 +103,9 @@ if (window.innerWidth >= 768) {
 
                                                 scale: 0.8,
                                                 opacity: 1,
-                                                ease: "power1.easeIn",
-                                                duration: 1,
+                                                ease: "power0.easeInOut",
+                                                delay: 4,
+                                                duration: 3,
                                                 reverse: true,
                                                 bottom: -120,
 
