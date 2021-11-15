@@ -8,6 +8,28 @@ const controller = new ScrollMagic.Controller();
 let customEase = `CustomEase.create("custom", "M0,0,C0.126,0.382,0.049,0.972,0.186,1.14,0.486,1.508,0.818,1.001,1,1"`;
 xvelocity.registerPlugin(ScrollTrigger);
 
+//if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheel, false);
+//window.onmousewheel = document.onmousewheel = wheel;
+
+function wheel(event) {
+    var delta = 0;
+    if (event.wheelDelta) delta = event.wheelDelta / 120;
+    else if (event.detail) delta = -event.detail / 3;
+
+    handle(delta);
+    if (event.preventDefault) event.preventDefault();
+    event.returnValue = false;
+}
+
+function handle(delta) {
+    var time = 500;
+    var distance = 100;
+
+    $('html, body').stop().animate({
+        scrollTop: $(window).scrollTop() - (distance * delta)
+    }, time);
+}
+
 if (window.innerWidth >= 768) {
 
 
@@ -63,7 +85,7 @@ if (window.innerWidth >= 768) {
                 onComplete: function() {
                     xvelocity.fromTo(
                         phoneNotif, {
-                            bottom: -90,
+                            bottom: -80,
                         }, {
                             scrollTrigger: {
                                 trigger: card,
